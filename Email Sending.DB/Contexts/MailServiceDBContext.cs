@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Email_Sending_API.Models;
+using Email_Sending_API.DB.StoredMessages.Models;
 
 #nullable disable
 
@@ -9,6 +9,7 @@ namespace Email_Sending_API.Context
 {
     public partial class MailServiceDBContext : DbContext
     {
+        protected readonly string ConnectionString;
         public MailServiceDBContext()
         {
         }
@@ -18,13 +19,13 @@ namespace Email_Sending_API.Context
         {
         }
 
-        public virtual DbSet<StoredMessage> StoredMessages { get; set; }
+        public virtual DbSet<StoredMessageDB> StoredMessagesDBs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Name=ConnectionStrings:MailServiceDB");
+                optionsBuilder.UseSqlServer(ConnectionString);
             }
         }
 
@@ -32,11 +33,13 @@ namespace Email_Sending_API.Context
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Cyrillic_General_CI_AS");
 
-            modelBuilder.Entity<StoredMessage>(entity =>
+            modelBuilder.Entity<StoredMessageDB>(entity =>
             {
                 entity.ToTable("STORED_MESSAGES");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.RecepientAddress).HasColumnName("recepient_address");
 
                 entity.Property(e => e.Body).HasColumnName("body");
 

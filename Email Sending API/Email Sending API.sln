@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Email Sending API", "Email Sending API.csproj", "{15E853CF-36DE-4646-9D5B-1D5E01272742}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Email_Sending_API", "Email_Sending_API.csproj", "{15E853CF-36DE-4646-9D5B-1D5E01272742}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Email_Sending_API.DB", "..\Email Sending.DB\Email_Sending_API.DB.csproj", "{238E1BF6-B682-4775-BD60-9C4FE237EFB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Email_Sending_API.Domain", "..\Email_Sending_API.Domain\Email_Sending_API.Domain.csproj", "{BFFB7ECC-1DF5-4078-8519-0EAF3AFE55AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Email_Sending_API.IoC", "..\Email_Sending_API.IoC\Email_Sending_API.IoC.csproj", "{07481189-DD95-4FD0-A531-5FF913C49AFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{15E853CF-36DE-4646-9D5B-1D5E01272742}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15E853CF-36DE-4646-9D5B-1D5E01272742}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15E853CF-36DE-4646-9D5B-1D5E01272742}.Release|Any CPU.Build.0 = Release|Any CPU
+		{238E1BF6-B682-4775-BD60-9C4FE237EFB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{238E1BF6-B682-4775-BD60-9C4FE237EFB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{238E1BF6-B682-4775-BD60-9C4FE237EFB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{238E1BF6-B682-4775-BD60-9C4FE237EFB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFFB7ECC-1DF5-4078-8519-0EAF3AFE55AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFFB7ECC-1DF5-4078-8519-0EAF3AFE55AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFFB7ECC-1DF5-4078-8519-0EAF3AFE55AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFFB7ECC-1DF5-4078-8519-0EAF3AFE55AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07481189-DD95-4FD0-A531-5FF913C49AFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07481189-DD95-4FD0-A531-5FF913C49AFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07481189-DD95-4FD0-A531-5FF913C49AFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07481189-DD95-4FD0-A531-5FF913C49AFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
