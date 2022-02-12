@@ -50,7 +50,7 @@ namespace Email_Sending_API.Domain.StoredMessages.Converters
         public static IEnumerable<StoredMessage> ToStoredMessages(this QueryMessage queryMessage)
         {
             List<StoredMessage> storedMessages = new List<StoredMessage>();
-            foreach(string address in queryMessage.RecepientsAddresses)
+            foreach(string address in queryMessage.Recepients)
             {
                 storedMessages.Add(new StoredMessage
                 {
