@@ -1,5 +1,4 @@
-﻿using Email_Sending_API.Context;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Email_Sending_API.DB.StoredMessages.Models;
 using Email_Sending_API.DB.StoredMessages.Repositories.Interfaces;
+using Email_Sending_API.DB.Contexts;
 
 namespace Email_Sending_API.DB.StoredMessages.Repositories
 {

@@ -12,7 +12,7 @@ namespace Email_Sending_API.DB.StoredMessages.Models
         public string Subject { get; set; }
         public string Body { get; set; }
         public DateTime CreationTime { get; set; }
-        public bool Result { get; set; }
+        public int Result { get; set; }
         public string FailedMessage { get; set; }
     }
 }

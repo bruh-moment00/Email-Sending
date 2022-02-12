@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Email_Sending_API.Domain.StoredMessages.Services.Interfaces
 {
-    interface ISenderService
+    public interface ISenderService
     {
         Task<IResult> SendMessage(StoredMessage message);
     }

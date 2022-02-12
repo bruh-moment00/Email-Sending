@@ -22,15 +22,15 @@ namespace Email_Sending_API.Domain.StoredMessages.Services
 
         public async Task<IResult> SendMessage(StoredMessage message)
         {
-            MailAddress from = new MailAddress(_senderConfiguration["Address"]);
+            MailAddress from = new MailAddress(_senderConfiguration["SMTPConfiguration:Address"]);
             MailAddress to = new MailAddress(message.RecepientAddress);
 
             MailMessage mailMessage = new MailMessage(from, to);
             mailMessage.Subject = message.Subject;
             mailMessage.Body = message.Body;
 
-            SmtpClient smtpClient = new SmtpClient(_senderConfiguration["Host"], Convert.ToInt32(_senderConfiguration["Port"]));
-            smtpClient.Credentials = new NetworkCredential(_senderConfiguration["Credentials:Login"], _senderConfiguration["Credentials:Password"]);
+            SmtpClient smtpClient = new SmtpClient(_senderConfiguration["SMTPConfiguration:Host"], Convert.ToInt32(_senderConfiguration["Port"]));
+            smtpClient.Credentials = new NetworkCredential(_senderConfiguration["SMTPConfiguration:Credentials:Login"], _senderConfiguration["SMTPConfiguration:Credentials:Password"]);
             smtpClient.EnableSsl = true;
 
             try

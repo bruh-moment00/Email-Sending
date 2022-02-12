@@ -19,7 +19,7 @@ namespace Email_Sending_API.Domain.StoredMessages.Converters
                 Subject = storedMessage.Subject,
                 Body = storedMessage.Body,
                 CreationTime = storedMessage.CreationTime,
-                Result = storedMessage.Result == SendResult.OK,
+                Result = (int)storedMessage.Result,
                 FailedMessage = storedMessage.FailedMessage
             };
 
@@ -34,7 +34,7 @@ namespace Email_Sending_API.Domain.StoredMessages.Converters
                 storedMessageDB.Subject,
                 storedMessageDB.Body,
                 storedMessageDB.CreationTime,
-                (SendResult)Convert.ToInt32(storedMessageDB.Result),
+                (SendResult)storedMessageDB.Result,
                 storedMessageDB.FailedMessage);
 
             return storedMessage;

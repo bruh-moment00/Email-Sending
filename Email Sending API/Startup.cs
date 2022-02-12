@@ -1,3 +1,5 @@
+using Autofac;
+using Email_Sending_API.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +35,7 @@ namespace Email_Sending_API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Email_Sending_API", Version = "v1" });
             });
         }
+        
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -54,6 +57,11 @@ namespace Email_Sending_API
             {
                 endpoints.MapControllers();
             });
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            IoCContainer.InitContainer(builder, Configuration);
         }
     }
 }

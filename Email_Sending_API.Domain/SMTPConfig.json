@@ -1,9 +1,0 @@
-{
-	"Address": "",
-	"Host": "smtp.mail.ru",
-	"Port": "465",
-	"Credentials": {
-		"Login": "",
-		"Password": ""
-	}
-}

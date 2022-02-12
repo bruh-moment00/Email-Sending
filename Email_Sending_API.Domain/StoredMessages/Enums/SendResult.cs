@@ -9,10 +9,10 @@ namespace Email_Sending_API.Domain.StoredMessages.Enums
 {
     public enum SendResult
     {
-        [Display(Name = "OK")]
-        OK = 0,
+        [Display(Name = "Failed")]
+        Failed = 0,
 
-        [Display(Name ="Failed")]
-        Failed = 1
+        [Display(Name = "OK")]
+        OK = 1
     }
 }

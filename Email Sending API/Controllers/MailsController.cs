@@ -26,23 +26,38 @@ namespace Email_Sending_API.Controllers
         {
             try
             {
-                IResult<IEnumerable<StoredMessageView>> getStoredMessages = await _messageService.GetStoredMessagesViewAsync();
+                IResult<IEnumerable<StoredMessageView>> getStoredMessagesResult = await _messageService.GetStoredMessagesViewAsync();
 
                 JsonResult jsonResult;
 
-                if (getStoredMessages.Ok)
+                if (getStoredMessagesResult.Ok)
                 {
-                    jsonResult = new JsonResult(Result.Success(getStoredMessages.Value));
+                    jsonResult = new JsonResult(Result.Success(getStoredMessagesResult.Value));
                 }
                 else
                 {
-                    jsonResult = new JsonResult(Result.Failure(getStoredMessages.Reason));
+                    jsonResult = new JsonResult(Result.Failure(getStoredMessagesResult.Reason));
                 }
                 return jsonResult;
             }
             catch(Exception ex)
             {
                 return new JsonResult(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> SendMessage([FromBody]QueryMessage queryMessage)
+        {
+            try
+            {
+                IResult sendMessageResult = await _messageService.SendAndSaveMultipleMessagesAsync(queryMessage);
+
+                return new JsonResult(sendMessageResult);
+            }
+            catch(Exception ex)
+            {
+                return new JsonResult(ex.Message + ex.StackTrace);
             }
         }
     }

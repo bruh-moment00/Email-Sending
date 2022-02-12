@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Email_Sending_API.Domain.StoredMessages.Services
 {
-    class MessageService : IMessageService
+    public class MessageService : IMessageService
     {
         private readonly IStoredMessagesRepository _storedMessagesRepository;
         private readonly ISenderService _senderService;
