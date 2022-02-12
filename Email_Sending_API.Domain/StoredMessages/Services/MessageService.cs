@@ -44,7 +44,21 @@ namespace Email_Sending_API.Domain.StoredMessages.Services
                 message.FailedMessage = sendResult.Reason;
             }
 
+            message.CreationTime = DateTime.Now;
+
             await _storedMessagesRepository.SaveMessageAsync(message.ToStoredMessageDB());
+            return Result.Success();
+        }
+
+        public async Task<IResult> SendAndSaveMultipleMessagesAsync(QueryMessage queryMessage)
+        {
+            IEnumerable<StoredMessage> storedMessages = queryMessage.ToStoredMessages();
+
+            foreach(StoredMessage storedMessage in storedMessages)
+            {
+                await SendAndSaveMessageAsync(storedMessage);
+            }
+
             return Result.Success();
         }
     }

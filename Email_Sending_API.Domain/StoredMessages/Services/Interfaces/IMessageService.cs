@@ -13,5 +13,6 @@ namespace Email_Sending_API.Domain.StoredMessages.Services.Interfaces
     {
         Task<IResult<IEnumerable<StoredMessageView>>> GetStoredMessagesViewAsync();
         Task<IResult> SendAndSaveMessageAsync(StoredMessage message);
+        Task<IResult> SendAndSaveMultipleMessagesAsync(QueryMessage queryMessage);
     }
 }
