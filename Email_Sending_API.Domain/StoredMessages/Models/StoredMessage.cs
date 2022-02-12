@@ -14,7 +14,7 @@ namespace Email_Sending_API.Domain.StoredMessages.Models
         {
         }
 
-        public StoredMessage(int? id, string recepientAddress, string subject, string body, DateTime creationTime, ResultEnum result, string failedMessage)
+        public StoredMessage(int? id, string recepientAddress, string subject, string body, DateTime creationTime, SendResult result, string failedMessage)
         {
             ID = id;
             RecepientAddress = recepientAddress;
@@ -30,7 +30,7 @@ namespace Email_Sending_API.Domain.StoredMessages.Models
         public string Subject { get; set; }
         public string Body { get; set; }
         public DateTime CreationTime { get; set; }
-        public ResultEnum Result { get; set; }
+        public SendResult Result { get; set; }
         public string FailedMessage { get; set; }
     }
 }

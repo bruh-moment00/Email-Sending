@@ -16,31 +16,31 @@ namespace Email_Sending_API.Domain.StoredMessages.Services
     class MessageService : IMessageService
     {
         private readonly IStoredMessagesRepository _storedMessagesRepository;
-        private readonly SenderService _senderService;
+        private readonly ISenderService _senderService;
 
-        public MessageService(IStoredMessagesRepository storedMessagesRepository, SenderService senderService)
+        public MessageService(IStoredMessagesRepository storedMessagesRepository, ISenderService senderService)
         {
             _storedMessagesRepository = storedMessagesRepository;
             _senderService = senderService;
         }
-        public async Task<IResult<IEnumerable<StoredMessage>>> GetStoredMessagesAsync()
+        public async Task<IResult<IEnumerable<StoredMessageView>>> GetStoredMessagesViewAsync()
         {
             IEnumerable<StoredMessageDB> storedMessageDBs = await _storedMessagesRepository.GetMessagesAsync();
 
-            return Result.Success(storedMessageDBs.ToStoredMessages());
+            return Result.Success(storedMessageDBs.ToStoredMessagesView());
         }
 
-        public async Task<IResult> SendAndSaveMessage(StoredMessage message)
+        public async Task<IResult> SendAndSaveMessageAsync(StoredMessage message)
         {
             Result sendResult = (Result)await _senderService.SendMessage(message);
 
             if (sendResult.Ok)
             {
-                message.Result = ResultEnum.OK;
+                message.Result = SendResult.OK;
             }
             else
             {
-                message.Result = ResultEnum.Failed;
+                message.Result = SendResult.Failed;
                 message.FailedMessage = sendResult.Reason;
             }
 

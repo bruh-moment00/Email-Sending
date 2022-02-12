@@ -19,7 +19,7 @@ namespace Email_Sending_API.Domain.StoredMessages.Converters
                 Subject = storedMessage.Subject,
                 Body = storedMessage.Body,
                 CreationTime = storedMessage.CreationTime,
-                Result = storedMessage.Result == ResultEnum.OK,
+                Result = storedMessage.Result == SendResult.OK,
                 FailedMessage = storedMessage.FailedMessage
             };
 
@@ -34,7 +34,7 @@ namespace Email_Sending_API.Domain.StoredMessages.Converters
                 storedMessageDB.Subject,
                 storedMessageDB.Body,
                 storedMessageDB.CreationTime,
-                (ResultEnum)Convert.ToInt32(storedMessageDB.Result),
+                (SendResult)Convert.ToInt32(storedMessageDB.Result),
                 storedMessageDB.FailedMessage);
 
             return storedMessage;
@@ -49,17 +49,17 @@ namespace Email_Sending_API.Domain.StoredMessages.Converters
 
         public static IEnumerable<StoredMessage> ToStoredMessages(this QueryMessage queryMessage)
         {
-            List<StoredMessage> messagesForSendListed = new List<StoredMessage>();
+            List<StoredMessage> storedMessages = new List<StoredMessage>();
             foreach(string address in queryMessage.RecepientsAddresses)
             {
-                messagesForSendListed.Add(new StoredMessage
+                storedMessages.Add(new StoredMessage
                 {
                     RecepientAddress = address,
                     Subject = queryMessage.Subject,
                     Body = queryMessage.Body
                 });
             }
-            return messagesForSendListed;
+            return storedMessages;
         }
 
         public static StoredMessageView ToStoredMessageView(this StoredMessage storedMessage)
@@ -76,12 +76,18 @@ namespace Email_Sending_API.Domain.StoredMessages.Converters
             return storedMessageView;
         }
 
-        public static IEnumerable<StoredMessage> ToStoredMessagesView(this IEnumerable<StoredMessage> storedMessages)
+        public static IEnumerable<StoredMessageView> ToStoredMessagesView(this IEnumerable<StoredMessage> storedMessages)
         {
             IEnumerable<StoredMessageView> storedMessagesView = storedMessages.Select(ToStoredMessageView);
 
-            return storedMessages;
+            return storedMessagesView;
         }
 
+        public static IEnumerable<StoredMessageView> ToStoredMessagesView(this IEnumerable<StoredMessageDB> storedMessagesDB)
+        {
+            IEnumerable<StoredMessageView> storedMessagesView = storedMessagesDB.ToStoredMessages().ToStoredMessagesView();
+
+            return storedMessagesView;
+        }
     }
 }

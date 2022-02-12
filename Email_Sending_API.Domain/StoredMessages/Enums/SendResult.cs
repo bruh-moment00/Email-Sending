@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Email_Sending_API.Domain.StoredMessages.Enums
 {
-    public enum ResultEnum
+    public enum SendResult
     {
         [Display(Name = "OK")]
         OK = 0,

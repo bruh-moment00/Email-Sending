@@ -1,4 +1,5 @@
 ﻿using Email_Sending_API.Domain.StoredMessages.Models;
+using Email_Sending_API.Domain.StoredMessages.Services.Interfaces;
 using Jane;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Email_Sending_API.Domain.StoredMessages.Services
 {
-    public class SenderService
+    public class SenderService : ISenderService
     {
         private IConfiguration _senderConfiguration;
         public SenderService(IConfiguration configuration)
