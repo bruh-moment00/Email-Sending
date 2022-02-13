@@ -21,6 +21,10 @@ namespace Email_Sending_API.Controllers
             _messageService = messageService;
         }
 
+        /// <summary>
+        /// Метод для получения отправленных сообщений из базы данных
+        /// </summary>
+        /// <returns>Возвращает результат в формате Json</returns>
         [HttpGet]
         public async Task<ActionResult> GetStoredMessagesAsync()
         {
@@ -46,8 +50,13 @@ namespace Email_Sending_API.Controllers
             }
         }
 
+        /// <summary>
+        /// Метод для отправки сообщений
+        /// </summary>
+        /// <param name="queryMessage">Данные о сообщении</param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult> SendMessage([FromBody]QueryMessage queryMessage)
+        public async Task<ActionResult> SendAndSaveMessage([FromBody]QueryMessage queryMessage)
         {
             try
             {

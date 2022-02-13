@@ -20,6 +20,11 @@ namespace Email_Sending_API.Domain.StoredMessages.Services
             _senderConfiguration = configuration;
         }
 
+        /// <summary>
+        /// Отправка сообщения
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public async Task<IResult> SendMessage(StoredMessage message)
         {
             MailAddress from = new MailAddress(_senderConfiguration["SMTPConfiguration:Address"]);

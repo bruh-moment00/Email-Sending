@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Email_Sending_API.DB.Contexts
 {
-    public class SQLServerDBContext: MailServiceDBContext
+    public class MSSQLServerDBContext: MailServiceDBContext
     {
-        public SQLServerDBContext(string connectionString) : base(connectionString)
+        public MSSQLServerDBContext(string connectionString) : base(connectionString)
         {
             Database.EnsureCreated();
         }

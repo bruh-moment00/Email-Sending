@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Email_Sending_API.Domain.StoredMessages.Enums
 {
+    /// <summary>
+    /// Варианты результата отправки сообщения
+    /// </summary>
     public enum SendResult
     {
         [Display(Name = "Failed")]

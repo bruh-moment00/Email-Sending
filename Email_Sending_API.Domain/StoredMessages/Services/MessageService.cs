@@ -23,6 +23,11 @@ namespace Email_Sending_API.Domain.StoredMessages.Services
             _storedMessagesRepository = storedMessagesRepository;
             _senderService = senderService;
         }
+        
+        /// <summary>
+        /// Получение списка сообщений из репозитория в формате для вывода
+        /// </summary>
+        /// <returns></returns>
         public async Task<IResult<IEnumerable<StoredMessageView>>> GetStoredMessagesViewAsync()
         {
             IEnumerable<StoredMessageDB> storedMessageDBs = await _storedMessagesRepository.GetMessagesAsync();
@@ -30,6 +35,11 @@ namespace Email_Sending_API.Domain.StoredMessages.Services
             return Result.Success(storedMessageDBs.ToStoredMessagesView());
         }
 
+        /// <summary>
+        /// Отправка и сохранение сообщения в базе данных
+        /// </summary>
+        /// <param name="message">Сообщение в общем формате</param>
+        /// <returns></returns>
         public async Task<IResult> SendAndSaveMessageAsync(StoredMessage message)
         {
             Result sendResult = (Result)await _senderService.SendMessage(message);
@@ -50,6 +60,11 @@ namespace Email_Sending_API.Domain.StoredMessages.Services
             return Result.Success();
         }
 
+        /// <summary>
+        /// Отправка и сохранение в базе данных нескольких сообщений
+        /// </summary>
+        /// <param name="queryMessage">Сообщение в формате запроса</param>
+        /// <returns></returns>
         public async Task<IResult> SendAndSaveMultipleMessagesAsync(QueryMessage queryMessage)
         {
             IEnumerable<StoredMessage> storedMessages = queryMessage.ToStoredMessages();

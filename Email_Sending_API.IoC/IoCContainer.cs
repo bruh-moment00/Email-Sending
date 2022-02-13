@@ -15,9 +15,14 @@ namespace Email_Sending_API.IoC
 {
     public class IoCContainer
     {
+        /// <summary>
+        /// Инициализация контейнера зависимостей
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="configuration"></param>
         public static void InitContainer(ContainerBuilder container, IConfiguration configuration)
         {
-            container.RegisterType<SQLServerDBContext>().As<MailServiceDBContext>().WithParameter("connectionString", configuration["ConnectionStrings:MailServiceDB"]).InstancePerLifetimeScope();
+            container.RegisterType<MSSQLServerDBContext>().As<MailServiceDBContext>().WithParameter("connectionString", configuration["ConnectionStrings:MailServiceDB"]).InstancePerLifetimeScope();
             container.RegisterType<StoredMessagesRepository>().As<IStoredMessagesRepository>().SingleInstance();
             container.RegisterType<MessageService>().As<IMessageService>().SingleInstance();
             container.RegisterType<SenderService>().As<ISenderService>().SingleInstance();

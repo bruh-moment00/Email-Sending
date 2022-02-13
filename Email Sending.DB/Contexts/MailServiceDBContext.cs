@@ -19,7 +19,9 @@ namespace Email_Sending_API.DB.Contexts
             : base(options)
         {
         }
-
+        /// <summary>
+        /// Виртуальная таблица для хранения сообщений в контексте
+        /// </summary>
         public virtual DbSet<StoredMessageDB> StoredMessagesDBs { get; set; }
 
     }
