@@ -28,26 +28,19 @@ namespace Email_Sending_API.Controllers
         [HttpGet]
         public async Task<ActionResult> GetStoredMessagesAsync()
         {
-            try
-            {
-                IResult<IEnumerable<StoredMessageView>> getStoredMessagesResult = await _messageService.GetStoredMessagesViewAsync();
+            IResult<IEnumerable<StoredMessageView>> getStoredMessagesResult = await _messageService.GetStoredMessagesViewAsync();
 
-                JsonResult jsonResult;
+            JsonResult jsonResult;
 
-                if (getStoredMessagesResult.Ok)
-                {
-                    jsonResult = new JsonResult(Result.Success(getStoredMessagesResult.Value));
-                }
-                else
-                {
-                    jsonResult = new JsonResult(Result.Failure(getStoredMessagesResult.Reason));
-                }
-                return jsonResult;
-            }
-            catch(Exception ex)
+            if (getStoredMessagesResult.Ok)
             {
-                return new JsonResult(ex.Message);
+                jsonResult = new JsonResult(getStoredMessagesResult.Value);
             }
+            else
+            {
+                jsonResult = new JsonResult(getStoredMessagesResult.Reason);
+            }
+            return jsonResult;
         }
 
         /// <summary>
@@ -58,16 +51,19 @@ namespace Email_Sending_API.Controllers
         [HttpPost]
         public async Task<ActionResult> SendAndSaveMessage([FromBody]QueryMessage queryMessage)
         {
-            try
-            {
-                IResult sendMessageResult = await _messageService.SendAndSaveMultipleMessagesAsync(queryMessage);
+            IResult sendMessageResult = await _messageService.SendAndSaveMultipleMessagesAsync(queryMessage);
 
-                return new JsonResult(sendMessageResult);
-            }
-            catch(Exception ex)
+            JsonResult jsonResult;
+
+            if (sendMessageResult.Ok)
             {
-                return new JsonResult(ex.Message + ex.StackTrace);
+                jsonResult = new JsonResult(sendMessageResult.Ok);
             }
+            else
+            {
+                jsonResult = new JsonResult(sendMessageResult.Reason);
+            }
+            return jsonResult;
         }
     }
 }

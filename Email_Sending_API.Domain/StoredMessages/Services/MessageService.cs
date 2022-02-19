@@ -42,7 +42,7 @@ namespace Email_Sending_API.Domain.StoredMessages.Services
         /// <returns></returns>
         public async Task<IResult> SendAndSaveMessageAsync(StoredMessage message)
         {
-            Result sendResult = (Result)await _senderService.SendMessage(message);
+            Result sendResult = (Result)await _senderService.SendMessageAsync(message);
 
             if (sendResult.Ok)
             {

@@ -1,7 +1,10 @@
-﻿using Email_Sending_API.Domain.StoredMessages.Models;
+﻿using Email_Sending_API.Domain.SMTPConfig.Models;
+using Email_Sending_API.Domain.SMTPConfig.Services.Interfaces;
+using Email_Sending_API.Domain.StoredMessages.Models;
 using Email_Sending_API.Domain.StoredMessages.Services.Interfaces;
 using Jane;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +17,10 @@ namespace Email_Sending_API.Domain.StoredMessages.Services
 {
     public class SenderService : ISenderService
     {
-        private IConfiguration _senderConfiguration;
-        public SenderService(IConfiguration configuration)
+        private readonly ISmtpService _smtpService;
+        public SenderService(ISmtpService smtpService)
         {
-            _senderConfiguration = configuration;
+            _smtpService = smtpService;
         }
 
         /// <summary>
@@ -25,18 +28,20 @@ namespace Email_Sending_API.Domain.StoredMessages.Services
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        public async Task<IResult> SendMessage(StoredMessage message)
+        public async Task<IResult> SendMessageAsync(StoredMessage message)
         {
-            MailAddress from = new MailAddress(_senderConfiguration["SMTPConfiguration:Address"]);
+            SMTPConfigModel smtpConfig = _smtpService.GetSmtpClientFromConfig();
+
+            SmtpClient smtpClient = new SmtpClient(smtpConfig.Host, smtpConfig.Port);
+            smtpClient.Credentials = new NetworkCredential(smtpConfig.UserName, smtpConfig.Password);
+            smtpClient.EnableSsl = true;
+
+            MailAddress from = new MailAddress(smtpConfig.Address);
             MailAddress to = new MailAddress(message.RecepientAddress);
 
             MailMessage mailMessage = new MailMessage(from, to);
             mailMessage.Subject = message.Subject;
             mailMessage.Body = message.Body;
-
-            SmtpClient smtpClient = new SmtpClient(_senderConfiguration["SMTPConfiguration:Host"], Convert.ToInt32(_senderConfiguration["Port"]));
-            smtpClient.Credentials = new NetworkCredential(_senderConfiguration["SMTPConfiguration:Credentials:Login"], _senderConfiguration["SMTPConfiguration:Credentials:Password"]);
-            smtpClient.EnableSsl = true;
 
             try
             {

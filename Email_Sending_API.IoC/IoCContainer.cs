@@ -10,6 +10,8 @@ using Email_Sending_API.DB.StoredMessages.Repositories;
 using Email_Sending_API.DB.StoredMessages.Repositories.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Email_Sending_API.DB.Contexts;
+using Email_Sending_API.Domain.SMTPConfig.Services;
+using Email_Sending_API.Domain.SMTPConfig.Services.Interfaces;
 
 namespace Email_Sending_API.IoC
 {
@@ -23,10 +25,10 @@ namespace Email_Sending_API.IoC
         public static void InitContainer(ContainerBuilder container, IConfiguration configuration)
         {
             container.RegisterType<MSSQLServerDBContext>().As<MailServiceDBContext>().WithParameter("connectionString", configuration["ConnectionStrings:MailServiceDB"]).InstancePerLifetimeScope();
-            container.RegisterType<StoredMessagesRepository>().As<IStoredMessagesRepository>().SingleInstance();
+            container.RegisterType<StoredMessagesRepository>().As<IStoredMessagesRepository>().InstancePerLifetimeScope();
             container.RegisterType<MessageService>().As<IMessageService>().SingleInstance();
             container.RegisterType<SenderService>().As<ISenderService>().SingleInstance();
-
+            container.RegisterType<SmtpService>().As<ISmtpService>().SingleInstance();
         }
     }
 }

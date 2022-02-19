@@ -25,7 +25,7 @@ namespace Email_Sending_API.DB.StoredMessages.Repositories
         /// <returns></returns>
         public async Task SaveMessageAsync(StoredMessageDB storedMessageDB)
         {
-            await _context.StoredMessagesDBs.AddAsync(storedMessageDB);
+            _context.StoredMessagesDBs.Add(storedMessageDB);
             await _context.SaveChangesAsync();
         }
         /// <summary>

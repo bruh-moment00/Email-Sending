@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Email_Sending_API.DB.StoredMessages.Repositories.Interfaces
 {
-    public interface IStoredMessagesRepository
+    public interface IStoredMessagesRepository : IDisposable
     {
         Task SaveMessageAsync(StoredMessageDB storedMessage);
         Task<List<StoredMessageDB>> GetMessagesAsync();

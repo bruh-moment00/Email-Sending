@@ -1,4 +1,5 @@
 using Autofac;
+using Email_Sending_API.Domain.SMTPConfig.Models;
 using Email_Sending_API.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,9 +22,13 @@ namespace Email_Sending_API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            var builder = new ConfigurationBuilder().AddJsonFile("SMTPConfig.json");
+            SmtpConfiguration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
+        public IConfiguration SmtpConfiguration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -34,6 +39,8 @@ namespace Email_Sending_API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Email_Sending_API", Version = "v1" });
             });
+
+            services.Configure<SMTPConfigModel>(SmtpConfiguration);
         }
         
 

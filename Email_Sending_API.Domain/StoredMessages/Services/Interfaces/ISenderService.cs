@@ -10,6 +10,6 @@ namespace Email_Sending_API.Domain.StoredMessages.Services.Interfaces
 {
     public interface ISenderService
     {
-        Task<IResult> SendMessage(StoredMessage message);
+        Task<IResult> SendMessageAsync(StoredMessage message);
     }
 }
