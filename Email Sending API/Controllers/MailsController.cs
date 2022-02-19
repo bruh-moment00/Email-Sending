@@ -49,7 +49,7 @@ namespace Email_Sending_API.Controllers
         /// <param name="queryMessage">Данные о сообщении</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult> SendAndSaveMessage([FromBody]QueryMessage queryMessage)
+        public async Task<ActionResult> SendAndSaveMessageAsync([FromBody]QueryMessage queryMessage)
         {
             IResult sendMessageResult = await _messageService.SendAndSaveMultipleMessagesAsync(queryMessage);
 
